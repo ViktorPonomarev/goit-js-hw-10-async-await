@@ -7,22 +7,37 @@
  */
 
   
-function fetchCountries(name) {
+async function fetchCountries(name) {
     
-  return fetch(
+  const response = await fetch(
     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
-  ).then(response => {
+  )
     
     if (!response.ok) {
         
-      throw new Error(response.status);
+      const name = await new Error(response.status);
     }
       
     return response.json();
        
-  });
- 
 }
+
+// function fetchCountries(name) {
+    
+//   return fetch(
+//     `https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`
+//   ).then(response => {
+    
+//     if (!response.ok) {
+        
+//       throw new Error(response.status);
+//     }
+      
+//     return response.json();
+       
+//   });
+ 
+// }
 
 
 //  fetchCountries('peru')

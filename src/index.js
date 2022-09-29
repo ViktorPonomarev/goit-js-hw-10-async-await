@@ -19,15 +19,16 @@ refs.inputForm.addEventListener('input',
     debounce(onInputChenge, DEBOUNCE_DELAY));
 
     // Cанитизация введенной строки методом trim()
-function onInputChenge() {
-    const name = refs.inputForm.value.trim();
+async function onInputChenge() {
+    const name = await refs.inputForm.value.trim();
     if (name === '') {
         return ((refs.countryList.innerHTML = ''),
         (refs.countryInfo.innerHTML = ''));
     }
 
     // Связываем логику с функционалом
-    fetchCountries(name)
+  
+      fetchCountries(name)
         .then(response => { 
             console.log(response);
             refs.countryList.innerHTML = '';
