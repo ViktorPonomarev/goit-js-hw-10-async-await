@@ -27,11 +27,13 @@ async function onInputChenge() {
     }
 
     // Связываем логику с функционалом
-      async fetchCountries(name) {
-const response = await Promise.all([
-           refs.countryList.innerHTML = '',
-            refs.countryInfo.innerHTML = ''
-])
+      async function fetchCountries(name) {
+        try {
+
+            const response = await Promise.all([
+                refs.countryList.innerHTML = '',
+                refs.countryInfo.innerHTML = ''
+            ])
            
             
             // Интерфейс с помощъю библиотеки Notiflix
@@ -50,44 +52,47 @@ const response = await Promise.all([
                     renderCountryInfo(response)
                 );
             }
-            
-          .catch(() => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        return [];
-    });
+        }
 
-      }
+        catch {
+
+            Notiflix.Notify.failure('Oops, there is no country with that name');
+        return [];
+           
+            }
+      
+        }
     
 
-      fetchCountries(name)
-        .then(response => { 
-            console.log(response);
-            refs.countryList.innerHTML = '';
-            refs.countryInfo.innerHTML = '';
-            // Интерфейс с помощъю библиотеки Notiflix
-            if (response.length > 10) {
-                Notiflix.Notify.info(
-                    'Too many matches found. Please enter a more specific name.'
-                );
-            } else if (response.length < 10 && response.length >= 2) {
-                refs.countryList.insertAdjacentHTML(
-                    'beforeend',
-                    renderCountryList(response)
-                );
-            } else {
-                refs.countryInfo.insertAdjacentHTML(
-                    'beforeend',
-                    renderCountryInfo(response)
-                );
-            }
+    //   fetchCountries(name)
+    //     .then(response => { 
+    //         console.log(response);
+    //         refs.countryList.innerHTML = '';
+    //         refs.countryInfo.innerHTML = '';
+    //         // Интерфейс с помощъю библиотеки Notiflix
+    //         if (response.length > 10) {
+    //             Notiflix.Notify.info(
+    //                 'Too many matches found. Please enter a more specific name.'
+    //             );
+    //         } else if (response.length < 10 && response.length >= 2) {
+    //             refs.countryList.insertAdjacentHTML(
+    //                 'beforeend',
+    //                 renderCountryList(response)
+    //             );
+    //         } else {
+    //             refs.countryInfo.insertAdjacentHTML(
+    //                 'beforeend',
+    //                 renderCountryInfo(response)
+    //             );
+    //         }
             
-        })
+    //     })
         
-        // Ошибку со статус кодом 404 - не найдено, с помощъю библиотеки Notiflix!
-      .catch(() => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        return [];
-    });
+    //     // Ошибку со статус кодом 404 - не найдено, с помощъю библиотеки Notiflix!
+    //   .catch(() => {
+    //     Notiflix.Notify.failure('Oops, there is no country with that name');
+    //     return [];
+    // });
  
 }
 // Оформили флаг и название страни
