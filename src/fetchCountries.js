@@ -5,8 +5,6 @@
  /* Напиши функцию fetchCountries(name) которая делает HTTP-запрос на
 ресурс name и возвращает промис с массивом стран - результатом запроса. 
  */
-
-  
 async function fetchCountries(name) {
     
   const response = await fetch(
@@ -18,9 +16,11 @@ async function fetchCountries(name) {
       const name = await new Error(response.status);
     }
       
-    return response.json();
+    return await json();
        
 }
+
+  
 
 // function fetchCountries(name) {
     

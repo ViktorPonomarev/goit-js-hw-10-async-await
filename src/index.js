@@ -20,22 +20,21 @@ refs.inputForm.addEventListener('input',
 
     // Cанитизация введенной строки методом trim()
 async function onInputChenge() {
-    const name = await refs.inputForm.value.trim();
+    const name = refs.inputForm.value.trim();
     if (name === '') {
         return ((refs.countryList.innerHTML = ''),
         (refs.countryInfo.innerHTML = ''));
     }
 
     // Связываем логику с функционалом
-      async function fetchCountries(name) {
-        try {
+    
+    const data = await(name);
+    console.log(data);
 
-            const response = await Promise.all([
-                refs.countryList.innerHTML = '',
-                refs.countryInfo.innerHTML = ''
-            ])
-           
-            
+        try {
+            refs.countryList.innerHTML = '';
+            refs.countryInfo.innerHTML = '';
+
             // Интерфейс с помощъю библиотеки Notiflix
             if (response.length > 10) {
                 Notiflix.Notify.info(
@@ -60,8 +59,12 @@ async function onInputChenge() {
         return [];
            
             }
+            
+            
+           
+            
       
-        }
+        
     
 
     //   fetchCountries(name)
