@@ -27,9 +27,10 @@ async function onInputChenge() {
     }
 
     // Связываем логику с функционалом
-    
-    const data = await(name);
-    console.log(data);
+    async function nameCountries(name) {
+
+          const data = await(name);
+        console.log(data);
 
         try {
             refs.countryList.innerHTML = '';
@@ -56,11 +57,14 @@ async function onInputChenge() {
         catch {
 
             Notiflix.Notify.failure('Oops, there is no country with that name');
-        return [];
+            return [];
            
-            }
+        }
+
+    }
+      
             
-            
+      
            
             
       
