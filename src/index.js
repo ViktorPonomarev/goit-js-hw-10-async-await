@@ -23,85 +23,44 @@ async function onInputChenge() {
     const name = refs.inputForm.value.trim();
     if (name === '') {
         return ((refs.countryList.innerHTML = ''),
-        (refs.countryInfo.innerHTML = ''));
+            (refs.countryInfo.innerHTML = ''));
     }
 
     // Связываем логику с функционалом
-    async function nameCountries(name) {
+    const data = await fetchCountries(name);
+    console.log(data);
+    refs.countryList.innerHTML = '';
+    refs.countryInfo.innerHTML = '';
 
-          const data = await(name);
-        console.log(data);
-
-        try {
-            refs.countryList.innerHTML = '';
-            refs.countryInfo.innerHTML = '';
-
-            // Интерфейс с помощъю библиотеки Notiflix
-            if (response.length > 10) {
-                Notiflix.Notify.info(
-                    'Too many matches found. Please enter a more specific name.'
-                );
-            } else if (response.length < 10 && response.length >= 2) {
-                refs.countryList.insertAdjacentHTML(
-                    'beforeend',
-                    renderCountryList(response)
-                );
-            } else {
-                refs.countryInfo.insertAdjacentHTML(
-                    'beforeend',
-                    renderCountryInfo(response)
-                );
-            }
-        }
-
-        catch {
-
-            Notiflix.Notify.failure('Oops, there is no country with that name');
-            return [];
+    try {
            
+        // Интерфейс с помощъю библиотеки Notiflix
+        if (data.length > 10) {
+            Notiflix.Notify.info(
+                'Too many matches found. Please enter a more specific name.'
+            );
+        } else if (data.length < 10 && data.length >= 2) {
+            refs.countryList.insertAdjacentHTML(
+                'beforeend',
+                renderCountryList(data)
+            );
+        } else {
+            refs.countryInfo.insertAdjacentHTML(
+                'beforeend',
+                renderCountryInfo(data)
+            );
         }
-
     }
-      
-            
-      
-           
-            
-      
-        
-    
 
-    //   fetchCountries(name)
-    //     .then(response => { 
-    //         console.log(response);
-    //         refs.countryList.innerHTML = '';
-    //         refs.countryInfo.innerHTML = '';
-    //         // Интерфейс с помощъю библиотеки Notiflix
-    //         if (response.length > 10) {
-    //             Notiflix.Notify.info(
-    //                 'Too many matches found. Please enter a more specific name.'
-    //             );
-    //         } else if (response.length < 10 && response.length >= 2) {
-    //             refs.countryList.insertAdjacentHTML(
-    //                 'beforeend',
-    //                 renderCountryList(response)
-    //             );
-    //         } else {
-    //             refs.countryInfo.insertAdjacentHTML(
-    //                 'beforeend',
-    //                 renderCountryInfo(response)
-    //             );
-    //         }
+    catch {
+
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+        return [];
+           
+    }
             
-    //     })
-        
-    //     // Ошибку со статус кодом 404 - не найдено, с помощъю библиотеки Notiflix!
-    //   .catch(() => {
-    //     Notiflix.Notify.failure('Oops, there is no country with that name');
-    //     return [];
-    // });
- 
 }
+            
 // Оформили флаг и название страни
 function renderCountryList(contries) {
     return contries
